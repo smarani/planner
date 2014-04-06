@@ -1,0 +1,17 @@
+<h1>{{ major.major_text }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<h3> You need to take:
+	2 Theory Courses,
+	2 Systems Courses, and
+	2 Application Courses.
+</h3>
+<form action="{% url 'planner:vote' major.id %}" method="post">
+{% csrf_token %}
+{% for choice in major.courses1_set.all %}
+    <input type="checkbox" name="choice" id="choice{{ forloop.counter }}" value="{{course.id}}" />
+    <label for="choice{{ forloop.counter }}">{{ choice.course_text}} is a {{choice.requirement }} requirement </label><br />
+{% endfor %}
+<input type="submit" value="Submit" />
+</form>

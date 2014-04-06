@@ -1,0 +1,7 @@
+from django.contrib import admin
+from polls.models import Planner
+
+class PlanAdmin(admin.ModelAdmin):
+    fields = ['major', 'course_text', 'requirement']
+
+admin.site.register(Planner, PlanAdmin)

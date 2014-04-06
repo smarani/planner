@@ -1,0 +1,28 @@
+<h1> WHAT CLASSES HAVE YOU TAKEN? </h1>
+
+<body>
+<script>
+function addText(){
+	var input = document.getElementById('input').value;
+    document.getElementById('do').innerHTML += " " + input;
+    document.getElementById('input').value == "";
+}
+</script>
+
+<p id="do"> </p>
+<input type='text' id='input'/>
+<input type='button' onclick='addText()' value='Add To List'/>
+</body>
+
+
+
+<h1> CHOOSE YOUR MAJOR </h1>
+{% if latest_course_list %}
+    <ul>
+    {% for course in latest_course_list %}
+        <li><a href="{% url 'planner:detail' course.id %}">{{ course.major_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}

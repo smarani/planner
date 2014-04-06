@@ -1,0 +1,19 @@
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
+
+from planner.models import Course
+
+def index(request):
+    latest_course_list= Course.objects.all()
+    context = {'latest_course_list': latest_course_list}
+    return render(request, 'planner/index.html', context)
+
+def detail(request, course_id):
+    poll = get_object_or_404(Course, pk=course_id)
+    return render(request, 'planner/detail.html', {'course': course})
+
+def results(request, course_id):
+    return HttpResponse("You're looking at the results of course %s." % course_id)
+
+def vote(request, poll_id):
+    return HttpResponse("You're voting on course %s." % course_id)
