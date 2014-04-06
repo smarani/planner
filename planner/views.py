@@ -8,9 +8,6 @@ def index(request):
     context = {'latest_course_list': latest_course_list}
     return render(request, 'planner/index.html', context)
 
-def user(request, course_id):
-	return HttpResponse("You are user %s" % course_id)
-
 def detail(request, course_id):
     major = get_object_or_404(Major, pk=course_id)
     return render(request, 'planner/detail.html', {'major': major})
