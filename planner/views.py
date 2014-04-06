@@ -16,19 +16,20 @@ def results(request, course_id):
     return HttpResponse("You're looking at the results of course %s." % course_id)
 
 def vote(request, course_id):
-    p = get_object_or_404(Major, pk=course_id)
-    try:
-        selected_choice = p.courses1_set.get(pk=request.POST['choice'])
-    except (KeyError, Courses1.DoesNotExist):
+	return HttpResponse("To be figured out...")
+    #p = get_object_or_404(Major, pk=course_id)
+    #try:
+    #    selected_choice = p.courses1_set.get(pk=request.POST['choice'])
+    #except (KeyError, Courses1.DoesNotExist):
         # Redisplay the poll voting form.
-        return render(request, 'planner/detail.html', {
-            'poll': p,
-            'error_message': "You didn't select a choice.",
-        })
-    else:
+    #    return render(request, 'planner/detail.html', {
+     #       'poll': p,
+      #      'error_message': "You didn't select a choice.",
+       # })
+    #else:
         #selected_choice.votes += 1
        # selected_choice.save()
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
-        return HttpResponseRedirect(reverse('planner:results', args=(p.id,)))
+     #   return HttpResponseRedirect(reverse('planner:results', args=(p.id,)))

@@ -2,11 +2,11 @@
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<h3> You need to take:
-	2 Theory Courses,
-	2 Systems Courses, and
-	2 Application Courses.
-</h3>
+
+{%for thing in major.requirements_set.all%}
+<h3> You need {{thing.num}} of the {{thing.distribution}} distribution </h3>
+{% endfor %}
+
 <form action="{% url 'planner:vote' major.id %}" method="post">
 {% csrf_token %}
 {% for choice in major.courses1_set.all %}
