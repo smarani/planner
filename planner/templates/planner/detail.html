@@ -10,7 +10,7 @@
 <form action="{% url 'planner:vote' major.id %}" method="post">
 {% csrf_token %}
 {% for choice in major.courses1_set.all %}
-    <input type="checkbox" name="choice" id="choice{{ forloop.counter }}" value="{{course.id}}" />
+    <input type="checkbox" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.course_text }}" />
     <label for="choice{{ forloop.counter }}">{{ choice.course_text}} is a {{choice.requirement }} requirement </label><br />
 {% endfor %}
 <input type="submit" value="Submit" />

@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-
+#from compare import setUser
 from planner.models import Courses1, Major
 
 def index(request):
@@ -8,28 +8,36 @@ def index(request):
     context = {'latest_course_list': latest_course_list}
     return render(request, 'planner/index.html', context)
 
-def detail(request, course_id):
-    major = get_object_or_404(Major, pk=course_id)
+def detail(request, major_id):
+    major = get_object_or_404(Major, pk=major_id)
+    
+
     return render(request, 'planner/detail.html', {'major': major})
+def name(request):
+	try:
+		username = request.POST['username']
+		coursetext = request.POST['courses']
+		password = request.POST['password']
+		majortext = get_object_or_404(Major, pk = request.POST['major_select'])
+		return HttpResponse("HI %s, you've taken %s and you are a %s major" % (username, coursetext, majortext))
+	except:
+		return HttpResponse("Failed")
 
-def results(request, course_id):
-    return HttpResponse("You're looking at the results of course %s." % course_id)
 
-def vote(request, course_id):
-	return HttpResponse("To be figured out...")
-    #p = get_object_or_404(Major, pk=course_id)
-    #try:
-    #    selected_choice = p.courses1_set.get(pk=request.POST['choice'])
-    #except (KeyError, Courses1.DoesNotExist):
-        # Redisplay the poll voting form.
-    #    return render(request, 'planner/detail.html', {
-     #       'poll': p,
-      #      'error_message': "You didn't select a choice.",
-       # })
-    #else:
-        #selected_choice.votes += 1
-       # selected_choice.save()
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
-     #   return HttpResponseRedirect(reverse('planner:results', args=(p.id,)))
+def results(request, major_id):
+    return HttpResponse("You're looking at the results of course %s." % major_id)
+
+def vote(request, major_id):
+    p = get_object_or_404(Major, pk=major_id)
+    selected = ''
+    j = len(p.courses1_set.all())
+
+    for i in range(0, j): 
+    	pk = ''
+    	try:
+    		pk = request.POST['choice'+str(i+1)]
+    	except:
+    		pass
+    	if pk != '':
+    		selected = selected + ', ' + pk
+    return HttpResponse("You selected:%s" %selected)
